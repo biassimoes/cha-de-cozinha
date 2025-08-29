@@ -1,5 +1,5 @@
 body {
-  background-color: #000000;
+  background-color: #ffffff;
   color: #0084ff; 
   font-family: "Georgia", serif;
   font-weight: bold;
@@ -13,7 +13,7 @@ body {
 }
 
 h1, h2 {
-  color: #1098dc;
+  color: #00aaff;
   margin-bottom: 10px;
 }
 
