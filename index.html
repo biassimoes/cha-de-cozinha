@@ -58,7 +58,6 @@
     const item = botao.innerText.trim();
     const link = botao.getAttribute("data-link");
 
-    // Salva no Firebase
     db.ref("presentes/" + btoa(link)).set({
       reservado: true
     });
@@ -68,7 +67,6 @@
     window.open(link, "_blank");
   }
 
-  // Ao carregar a página, verifica quais botões já foram reservados
   window.onload = function () {
     const botoes = document.querySelectorAll("button[data-link]");
     botoes.forEach(botao => {
