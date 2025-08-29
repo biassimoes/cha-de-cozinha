@@ -53,29 +53,11 @@
   <div class="categoria"><h2>Lavanderia</h2><button onclick="desativar(this)" data-link="https://br.shp.ee/3KbXwZu">Varal de chão</button><button onclick="desativar(this)" data-link="https://br.shp.ee/rdXiJK2">Kit de ferramentas</button></div>
 
   <div class="categoria"><h2>Banheiro</h2><button onclick="desativar(this)" data-link="https://br.shp.ee/rXtn8UV">Kit acessórios banheiro</button></div>
- <script>
-  function desativar(botao) {
-    const item = botao.innerText.trim();
-    const link = botao.getAttribute("data-link");
-
-    db.ref("presentes/" + btoa(link)).set({
-      reservado: true
-    });
-
-    botao.disabled = true;
-    botao.innerText += " ✅";
-    window.open(link, "_blank");
-  }
-
-  window.onload = function () {
-    const botoes = document.querySelectorAll("button[data-link]");
-    botoes.forEach(botao => {
-      const link = botao.getAttribute("data-link");
-      db.ref("presentes/" + btoa(link)).once("value", snapshot => {
-        if (snapshot.exists() && snapshot.val().reservado) {
-          botao.disabled = true;
-          botao.innerText += " ✅";
-        }
-</script>
+<script>
+function desativar(botao) { 
+  const link = botao.getAttribute("data-link"); 
+  if (link) { window.open(link, "_blank"); } 
+  botao.disabled = true; botao.innerText += " ✅"; } 
+  </script>
 </body>
 </html>
