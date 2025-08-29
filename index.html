@@ -35,6 +35,22 @@
       cursor: not-allowed;
     }
   </style>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_DOMINIO.firebaseapp.com",
+    databaseURL: "https://SEU_DOMINIO.firebaseio.com",
+    projectId: "SEU_ID",
+    storageBucket: "SEU_BUCKET.appspot.com",
+    messagingSenderId: "SEU_SENDER_ID",
+    appId: "SEU_APP_ID"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+</script>
 </head>
 <body>
   <h1>Chá de Cozinha</h1>
@@ -53,22 +69,6 @@
   <div class="categoria"><h2>Lavanderia</h2><button onclick="desativar(this)" data-link="https://br.shp.ee/3KbXwZu">Varal de chão</button><button onclick="desativar(this)" data-link="https://br.shp.ee/rdXiJK2">Kit de ferramentas</button></div>
 
   <div class="categoria"><h2>Banheiro</h2><button onclick="desativar(this)" data-link="https://br.shp.ee/rXtn8UV">Kit acessórios banheiro</button></div>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_DOMINIO.firebaseapp.com",
-    databaseURL: "https://SEU_DOMINIO.firebaseio.com",
-    projectId: "SEU_ID",
-    storageBucket: "SEU_BUCKET.appspot.com",
-    messagingSenderId: "SEU_SENDER_ID",
-    appId: "SEU_APP_ID"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-</script>
   <script>
   function desativar(botao) {
     const link = botao.getAttribute("data-link");
@@ -102,7 +102,6 @@
       });
     });
   };
-
 </script>
 </body>
 </html>
