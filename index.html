@@ -57,6 +57,8 @@
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
+  import { ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
   window.desativar = function (botao) {
     const link = botao.getAttribute("data-link");
     const id = btoa(link);
@@ -66,20 +68,19 @@
     }
 
     const presenteRef = ref(db, "presentes/" + id);
-    set(presenteRef, {
-      reservado: true
+  set(presenteRef, { reservado: true })
+    .then(() => {
+      botao.disabled = true;
+      if (!botao.innerText.includes("✅")) {
+        botao.innerText += " ✅";
+      }
+    })
+    .catch(error => {
+      console.error("Erro ao salvar no Firebase:", error);
+      alert("Erro ao reservar o presente. Verifique sua conexão ou permissões.");
     });
+};
 
-    botao.disabled = true;
-    if (!botao.innerText.includes("✅")) {
-      botao.innerText += " ✅";
-    }
-  })
-      .catch(error => {
-        console.error("Erro ao salvar no Firebase:", error);
-        alert("Ocorreu um erro ao reservar o presente. Tente novamente.");
-      });
-  };
 
   window.onload = function () {
     const presentesRef = ref(db, "presentes");
@@ -102,10 +103,8 @@ onValue(ref(db, "presentes"), snapshot => {
       if (!botao.innerText.includes("✅")) {
         botao.innerText += " ✅";
       }
-    }
-  });
-}).catch(error => {
-      console.error("Erro ao carregar dados do Firebase:", error);
+      }
+     });
     });
   };
 </script>
