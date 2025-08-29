@@ -40,63 +40,62 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
 
-  <script>
-    // ✅ Configuração do Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyD1fn_kDEozwbys7crMmQtoUwgSYQuIE3A",
-      authDomain: "cha-de-cozinha-ed164.firebaseapp.com",
-      databaseURL: "https://cha-de-cozinha-ed164-default-rtdb.firebaseio.com",
-      projectId: "cha-de-cozinha-ed164",
-      storageBucket: "cha-de-cozinha-ed164.appspot.com",
-      messagingSenderId: "539801316247",
-      appId: "1:539801316247:web:5cb50bf3dc1a949a9032d2"
-    };
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyD1fn_kDEozwbys7crMmQtoUwgSYQuIE3A",
+    authDomain: "cha-de-cozinha-ed164.firebaseapp.com",
+    databaseURL: "https://cha-de-cozinha-ed164-default-rtdb.firebaseio.com",
+    projectId: "cha-de-cozinha-ed164",
+    storageBucket: "cha-de-cozinha-ed164.appspot.com",
+    messagingSenderId: "539801316247",
+    appId: "1:539801316247:web:5cb50bf3dc1a949a9032d2"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-function desativar(botao) {
-  const link = botao.getAttribute("data-link");
-  const id = btoa(link);
+  window.desativar = function (botao) {
+    const link = botao.getAttribute("data-link");
+    const id = btoa(link);
 
-  if (link) {
-    window.open(link, "_blank");
-  }
+    if (link) {
+      window.open(link, "_blank");
+    }
 
-  const presenteRef = ref(db, "presentes/" + id);
-  set(presenteRef, {
-    reservado: true
-  });
-
-  botao.disabled = true;
-  if (!botao.innerText.includes("✅")) {
-    botao.innerText += " ✅";
-  }
-}
-
-window.onload = function () {
-  const presentesRef = ref(db, "presentes");
-  get(presentesRef).then(snapshot => {
-    const dados = snapshot.val() || {};
-    const botoes = document.querySelectorAll("button[data-link]");
-
-    botoes.forEach(botao => {
-      const link = botao.getAttribute("data-link");
-      const id = btoa(link);
-
-      if (dados[id] && dados[id].reservado) {
-        botao.disabled = true;
-        if (!botao.innerText.includes("✅")) {
-          botao.innerText += " ✅";
-        }
-      }
+    const presenteRef = ref(db, "presentes/" + id);
+    set(presenteRef, {
+      reservado: true
     });
-  });
-};
-  </script>
+
+    botao.disabled = true;
+    if (!botao.innerText.includes("✅")) {
+      botao.innerText += " ✅";
+    }
+  };
+
+  window.onload = function () {
+    const presentesRef = ref(db, "presentes");
+    get(presentesRef).then(snapshot => {
+      const dados = snapshot.val() || {};
+      const botoes = document.querySelectorAll("button[data-link]");
+
+      botoes.forEach(botao => {
+        const link = botao.getAttribute("data-link");
+        const id = btoa(link);
+
+        if (dados[id] && dados[id].reservado) {
+          botao.disabled = true;
+          if (!botao.innerText.includes("✅")) {
+            botao.innerText += " ✅";
+          }
+        }
+      });
+    });
+  };
+</script>
 </head>
 <body>
   <h1>Chá de Cozinha</h1>
