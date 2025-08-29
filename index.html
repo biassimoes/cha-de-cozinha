@@ -52,46 +52,50 @@
       appId: "1:539801316247:web:5cb50bf3dc1a949a9032d2"
     };
 
-    // ✅ Inicializa Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-    function desativar(botao) {
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+function desativar(botao) {
+  const link = botao.getAttribute("data-link");
+  const id = btoa(link);
+
+  if (link) {
+    window.open(link, "_blank");
+  }
+
+  const presenteRef = ref(db, "presentes/" + id);
+  set(presenteRef, {
+    reservado: true
+  });
+
+  botao.disabled = true;
+  if (!botao.innerText.includes("✅")) {
+    botao.innerText += " ✅";
+  }
+}
+
+window.onload = function () {
+  const presentesRef = ref(db, "presentes");
+  get(presentesRef).then(snapshot => {
+    const dados = snapshot.val() || {};
+    const botoes = document.querySelectorAll("button[data-link]");
+
+    botoes.forEach(botao => {
       const link = botao.getAttribute("data-link");
       const id = btoa(link);
 
-      if (link) {
-        window.open(link, "_blank");
+      if (dados[id] && dados[id].reservado) {
+        botao.disabled = true;
+        if (!botao.innerText.includes("✅")) {
+          botao.innerText += " ✅";
+        }
       }
-
-      db.ref("presentes/" + id).set({
-        reservado: true
-      });
-
-      botao.disabled = true;
-      if (!botao.innerText.includes("✅")) {
-        botao.innerText += " ✅";
-      }
-    }
-
-    window.onload = function () {
-      db.ref("presentes").once("value", snapshot => {
-        const dados = snapshot.val() || {};
-        const botoes = document.querySelectorAll("button[data-link]");
-
-        botoes.forEach(botao => {
-          const link = botao.getAttribute("data-link");
-          const id = btoa(link);
-
-          if (dados[id] && dados[id].reservado) {
-            botao.disabled = true;
-            if (!botao.innerText.includes("✅")) {
-              botao.innerText += " ✅";
-            }
-          }
-        });
-      });
-    };
+    });
+  });
+};
   </script>
 </head>
 <body>
