@@ -4,37 +4,47 @@
   <meta charset="UTF-8">
   <title>Chá de Cozinha</title>
   <style>
-    body {
-      background-color: #ede3e3;
-      color: #125f85;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 20px;
-    }
+<style>
+  body {
+    background-color: #ede3e3;
+    color: #125f85;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    font-size: 20px; /* Aumenta o tamanho da fonte geral */
+  }
 
-    h1, h2 {
-      color: #125f85;
-    }
+  h1 {
+    font-size: 36px; /* Título principal maior */
+    color: #125f85;
+  }
 
-    .categoria {
-      margin-bottom: 40px;
-    }
+  h2 {
+    font-size: 28px; /* Subtítulo maior */
+    color: #125f85;
+  }
 
-    button {
-      background-color: #125f85;
-      color: #000;
-      border: none;
-      padding: 25px 20px;
-      margin: 5px;
-      cursor: pointer;
-      border-radius: 15px;
-    }
+  .categoria {
+    margin-bottom: 40px;
+  }
 
-    button:disabled {
-      background-color: #444;
-      color: #888;
-      cursor: not-allowed;
-    }
-  </style>
+  button {
+    background-color: #125f85;
+    color: #000;
+    border: none;
+    padding: 30px 30px; /* Botões mais largos e altos */
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 22px; /* Texto do botão maior */
+    font-weight: bold;
+  }
+
+  button:disabled {
+    background-color: #444;
+    color: #888;
+    cursor: not-allowed;
+  }
+</style>
 
   <!-- ✅ Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
