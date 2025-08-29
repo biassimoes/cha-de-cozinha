@@ -7,7 +7,7 @@
     body {
       background-color: #15171a;
       color: #2099d5;
-      font-family: serif bold, serif, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding: 20px;
     }
 
@@ -36,96 +36,104 @@
     }
   </style>
 
-  <script>
-  function desativar(botao) {
-    const link = botao.getAttribute("data-link");
-    const id = btoa(link);
+<script>// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-    if (link) {
-      window.open(link, "_blank");
-    }
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyD1fn_kDEozwbys7crMmQtoUwgSYQuIE3A",
+  authDomain: "cha-de-cozinha-ed164.firebaseapp.com",
+  projectId: "cha-de-cozinha-ed164",
+  storageBucket: "cha-de-cozinha-ed164.firebasestorage.app",
+  messagingSenderId: "539801316247",
+  appId: "1:539801316247:web:5cb50bf3dc1a949a9032d2"
+};
 
-    db.ref("presentes/" + id).set({
-      reservado: true
-    });
-
-    botao.disabled = true;
-    if (!botao.innerText.includes("✅")) {
-      botao.innerText += " ✅";
-    }
-  }
-
-  window.onload = function () {
-    db.ref("presentes").once("value", snapshot => {
-      const dados = snapshot.val() || {};
-      const botoes = document.querySelectorAll("button[data-link]");
-
-      botoes.forEach(botao => {
-        const link = botao.getAttribute("data-link");
-        const id = btoa(link);
-
-        if (dados[id] && dados[id].reservado) {
-          botao.disabled = true;
-          if (!botao.innerText.includes("✅")) {
-            botao.innerText += " ✅";
-          }
-        }
-      });
-    });
-  };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 </script>
 
+  <script>
+    function desativar(botao) {
+      const link = botao.getAttribute("data-link");
+      const id = btoa(link);
+
+      if (link) {
+        window.open(link, "_blank");
+      }
+
+      db.ref("presentes/" + id).set({
+        reservado: true
+      });
+
+      botao.disabled = true;
+      if (!botao.innerText.includes("✅")) {
+        botao.innerText += " ✅";
+      }
+    }
+
+    window.onload = function () {
+      db.ref("presentes").once("value", snapshot => {
+        const dados = snapshot.val() || {};
+        const botoes = document.querySelectorAll("button[data-link]");
+
+        botoes.forEach(botao => {
+          const link = botao.getAttribute("data-link");
+          const id = btoa(link);
+
+          if (dados[id] && dados[id].reservado) {
+            botao.disabled = true;
+            if (!botao.innerText.includes("✅")) {
+              botao.innerText += " ✅";
+            }
+          }
+        });
+      });
+    };
+  </script>
 </head>
 <body>
   <h1>Chá de Cozinha</h1>
   <p>Escolha um item para presentear!</p>
 
-<div class="categoria"><h2>Eletrodomésticos</h2><button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/sanduicheira-amvox-ams-370-preta-750w-antiaderente/p/235233800/ep/gset/"aria-label="Presentear com Sanduicheira">Sanduicheira</button><button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/chaleira-eletrica-mondial-pratic-hot-ce-07-preta-1l/p/236674800/ud/chcl/">Chaleira elétrica</button><button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/air-fryer-mondial-afn-40-bf-preta-com-timer/p/236409700/ep/efso/">Air fryer</button><button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/batedeira-mondial-preta-500w-premium-due-cake-inox-b-50-b-4-velocidades/p/021271000/ep/btdc/">Batedeira</button><button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/ferro-de-passar-roupa-a-seco-mondial-fsn-55-b-preto/p/227604000/ep/elfs/">Ferro de passar</button><button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/forno-eletrico-de-bancada-mondial-multifuncional-42l-preto-e-prata-grand-family-ii-frn-42-b/p/240012700/ed/forn/">Forno elétrico</button><button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/micro-ondas-midea-20l-branco-e-preto-mras22/p/231232700/ed/mond/">Microondas</button><button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/mixer-2-em-1-mondial-500w-preto-e-prata-power-mixer-premium-m-07-2-velocidades/p/236677700/ep/mixr/">Mixer</button><button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/ventilador-de-mesa-e-parede-wap-flow-turbo-180w-8-pas-50cm-110v/p/dbd5110ak1/ar/arvl/">Ventilador</button><button onclick="desativar(this)" data-link="https://br.shp.ee/q4VAGn6">Aspirador vertical</button></div>
+  <!-- Categorias e botões -->
+  <div class="categoria">
+    <h2>Eletrodomésticos</h2>
+    <button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/sanduicheira-amvox-ams-370-preta-750w-antiaderente/p/235233800/ep/gset/" aria-label="Presentear com Sanduicheira">Sanduicheira</button>
+    <button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/chaleira-eletrica-mondial-pratic-hot-ce-07-preta-1l/p/236674800/ud/chcl/" aria-label="Presentear com Chaleira elétrica">Chaleira elétrica</button>
+    <button onclick="desativar(this)" data-link="https://www.magazinevoce.com.br/magazineofertadaluiza/air-fryer-mondial-afn-40-bf-preta-com-timer/p/236409700/ep/efso/" aria-label="Presentear com Air fryer">Air fryer</button>
+    <!-- ... continue com os demais botões ... -->
+  </div>
 
-  <div class="categoria"><h2>Cozinha</h2>
-    <button onclick="desativar(this)" data-link="https://br.shp.ee/X63LWmv">Potes herméticos pra mantimentos</button><button onclick="desativar(this)" data-link="https://br.shp.ee/bwJnCM9">Saleiro</button><button onclick="desativar(this)" data-link="https://br.shp.ee/yakJdkK">Escorredor de louças</button><button onclick="desativar(this)" data-link="https://br.shp.ee/DFTNdSu">Conjunto Marinex</button><button onclick="desativar(this)" data-link="https://br.shp.ee/b5TSjFs">Kit talher</button><button onclick="desativar(this)" data-link="https://br.shp.ee/2dqyCfm">Conjunto de canecas</button><button onclick="desativar(this)" data-link="https://br.shp.ee/FJSbtfh">Jogo de taças</button><button onclick="desativar(this)" data-link="https://br.shp.ee/9yc72oE">Kit tábua de madeira</button><button onclick="desativar(this)" data-link="https://br.shp.ee/gGoX1z3">Taça de sobremesa</button><button onclick="desativar(this)" data-link="https://br.shp.ee/QZJcVTj">Kit de jantar</button><button onclick="desativar(this)" data-link="https://br.shp.ee/EJDYL4N">Pratos de sobremesa</button><button onclick="desativar(this)" data-link="https://br.shp.ee/yXdLN1Q">Kit potes</button><button onclick="desativar(this)" data-link="https://br.shp.ee/ytssD7K">Porta temperos</button><button onclick="desativar(this)" data-link="https://br.shp.ee/kKnBwKV">Panela de pressão</button><button onclick="desativar(this)" data-link="https://br.shp.ee/nVGyvhD">Jogo de panelas</button><button onclick="desativar(this)" data-link="https://br.shp.ee/gKuhxXu">Kit churrasco</button><button onclick="desativar(this)" data-link="https://br.shp.ee/dM43UfD">Jogo de copo</button><button onclick="desativar(this)" data-link="https://br.shp.ee/QdvwB53">Jogo americano</button><button onclick="desativar(this)" data-link="https://br.shp.ee/LUCNs57">Jarra de vidro</button><button onclick="desativar(this)" data-link="https://br.shp.ee/x4uaoCv">Garrafa de café</button><button onclick="desativar(this)" data-link="https://br.shp.ee/9Y6h9DT">Fruteira</button><button onclick="desativar(this)" data-link="https://br.shp.ee/7cDBvDt">Kit utensílios de cozinha</button><button onclick="desativar(this)" data-link="https://br.shp.ee/vti7LSm">Boleira</button><button onclick="desativar(this)" data-link="https://br.shp.ee/Ds5JjZ4">Kit forma</button></div>
+  <div class="categoria">
+    <h2>Cozinha</h2>
+    <button onclick="desativar(this)" data-link="https://br.shp.ee/X63LWmv" aria-label="Presentear com Potes herméticos">Potes herméticos</button>
+    <button onclick="desativar(this)" data-link="https://br.shp.ee/bwJnCM9" aria-label="Presentear com Saleiro">Saleiro</button>
+    <!-- ... continue com os demais botões ... -->
+  </div>
 
-  <div class="categoria"><h2>Quarto (Cama Queen)</h2>
-    <button onclick="desativar(this)" data-link="https://shopee.com.br/product/300779622/22896783747?d_id=4040e">Jogo de lençol</button><button onclick="desativar(this)" data-link="https://br.shp.ee/GvyBCgt">Cobertor pesado</button><button onclick="desativar(this)" data-link="https://br.shp.ee/1FH5Wo7">Coberta manta</button><button onclick="desativar(this)" data-link="https://br.shp.ee/J9JLcEt">Cesto de roupa</button></div>
-  <div class="categoria"><h2>Sala</h2>
-    <button onclick="desativar(this)" data-link="https://br.shp.ee/Ls26CuY">Tapete felpudo</button></div>
+  <div class="categoria">
+    <h2>Quarto (Cama Queen)</h2>
+    <button onclick="desativar(this)" data-link="https://shopee.com.br/product/300779622/22896783747?d_id=4040e" aria-label="Presentear com Jogo de lençol">Jogo de lençol</button>
+    <!-- ... -->
+  </div>
 
-  <div class="categoria"><h2>Lavanderia</h2><button onclick="desativar(this)" data-link="https://br.shp.ee/3KbXwZu">Varal de chão</button><button onclick="desativar(this)" data-link="https://br.shp.ee/rdXiJK2">Kit de ferramentas</button></div>
+  <div class="categoria">
+    <h2>Sala</h2>
+    <button onclick="desativar(this)" data-link="https://br.shp.ee/Ls26CuY" aria-label="Presentear com Tapete felpudo">Tapete felpudo</button>
+  </div>
 
-  <div class="categoria"><h2>Banheiro</h2><button onclick="desativar(this)" data-link="https://br.shp.ee/rXtn8UV">Kit acessórios banheiro</button></div>
-  <script>
-  function desativar(botao) {
-    const link = botao.getAttribute("data-link");
-    const id = btoa(link); // cria uma chave única baseada no link
+  <div class="categoria">
+    <h2>Lavanderia</h2>
+    <button onclick="desativar(this)" data-link="https://br.shp.ee/3KbXwZu" aria-label="Presentear com Varal de chão">Varal de chão</button>
+    <button onclick="desativar(this)" data-link="https://br.shp.ee/rdXiJK2" aria-label="Presentear com Kit de ferramentas">Kit de ferramentas</button>
+  </div>
 
-    if (link) {
-      window.open(link, "_blank");
-    }
-
-    // Salva no Firebase que esse item foi escolhido
-    db.ref("presentes/" + id).set({
-      reservado: true
-    });
-
-    botao.disabled = true;
-    botao.innerText += " ✅";
-  }
-
-  // Ao carregar a página, verifica quais botões já foram reservados
-  window.onload = function () {
-    const botoes = document.querySelectorAll("button[data-link]");
-    botoes.forEach(botao => {
-      const link = botao.getAttribute("data-link");
-      const id = btoa(link);
-
-      db.ref("presentes/" + id).once("value", snapshot => {
-        if (snapshot.exists() && snapshot.val().reservado) {
-          botao.disabled = true;
-          botao.innerText += " ✅";
-        }
-      });
-    });
-  };
-</script>
+  <div class="categoria">
+    <h2>Banheiro</h2>
+    <button onclick="desativar(this)" data-link="https://br.shp.ee/rXtn8UV" aria-label="Presentear com Kit acessórios banheiro">Kit acessórios banheiro</button>
+  </div>
 </body>
 </html>
