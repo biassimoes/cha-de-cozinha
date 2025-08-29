@@ -61,6 +61,7 @@
   window.desativar = function (botao) {
     const link = botao.getAttribute("data-link");
     const id = btoa(link);
+    const nomeItem = botao.innerText;
 
     if (link) {
       window.open(link, "_blank");
