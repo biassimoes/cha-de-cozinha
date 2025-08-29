@@ -74,6 +74,11 @@
     if (!botao.innerText.includes("✅")) {
       botao.innerText += " ✅";
     }
+  })
+      .catch(error => {
+        console.error("Erro ao salvar no Firebase:", error);
+        alert("Ocorreu um erro ao reservar o presente. Tente novamente.");
+      });
   };
 
   window.onload = function () {
@@ -99,7 +104,10 @@ onValue(ref(db, "presentes"), snapshot => {
       }
     }
   });
-});
+}).catch(error => {
+      console.error("Erro ao carregar dados do Firebase:", error);
+    });
+  };
 </script>
 </head>
 <body>
